@@ -1,0 +1,26 @@
+
+you need install the follow packages
+pandas
+joblib
+numpy
+tqdm 
+gmplot
+
+
+step1: 
+run collect_info.py #iteration to collect information from usps
+do not set the iteration too large.
+I do not know the limitation number of this website, but <= 1000 will be fine.
+the output was stored in out/ folder
+
+step2:
+run extract_loc.py to draw the map.
+The output map was stored in out/folder in html format.
+
+step3:
+:) click mymap.html to see the result
+
+step4:
+Why they choose these path?
+Because they are the shortest path.
+
