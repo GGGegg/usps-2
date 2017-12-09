@@ -7,6 +7,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 import gmplot
+import collections
 ziptoloc_pd = pd.read_csv("../data/zipToLngLat.txt")
 
 
@@ -24,13 +25,15 @@ for key in collected_data:
 	zipcodes = []
 	lnglat = []
 	for step in collected_data[key]['TrackDetail']:
-		zipcode = step['EventZIPCode']
-		if zipcode is not None:
-			zipcodes.append(zipcode)
-			if zipcode in ziptoloc:
-				lnglat.append(ziptoloc[zipcode])
-			else:
-				print "key %s with zipcode %s not found" % (key,zipcode)
+		if type(step) == collections.OrderedDict:
+			zipcode = step['EventZIPCode']
+			if zipcode is not None:
+				zipcodes.append(zipcode)
+				if zipcode in ziptoloc:
+					lnglat.append(ziptoloc[zipcode])
+				else:
+					print "key %s with zipcode %s not found" % (key,zipcode)
+
 				
 	tracks[key] = np.array(lnglat)
 
