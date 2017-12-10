@@ -37,11 +37,13 @@ for key in collected_data:
 				
 	tracks[key] = np.array(lnglat)
 
-
+record=0
 gmap = gmplot.GoogleMapPlotter(37.428, -122.145, 16)
 for key in tracks:
 	if len(tracks[key]) >0:
+		record+=1
 		gmap.plot(tracks[key][:,0], tracks[key][:,1], 'cornflowerblue', edge_width=1)
+print(record)
 gmap.draw("../out/mymap.html")
 
 
