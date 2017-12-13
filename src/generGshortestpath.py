@@ -15,8 +15,8 @@ trips = extracttrips(rawdata)
 from sklearn.model_selection import train_test_split
 train,test = train_test_split(trips,test_size=0.2,random_state=42)
 data2=roadSegmentCount(train)
-# data3=count_to_pandas(data2)
-# data3.to_csv("../out/graph.csv",index=None)
+data3=count_to_pandas(data2)
+data3.to_csv("../out/graph.csv",index=None)
 
 
 
@@ -31,6 +31,7 @@ def GenerWeightedG(data3):
     for i in data3.index:
         Gcity.add_edge( data3['departure'][i],data3['destination'][i],weight=data3['weighted_distance'][i])
     return Gcity
+
 def zipcodeToLL(zipcodes):
     ziptoloc_pd = pd.read_csv("../data/zipToLngLat.txt")
     ziptoloc = {}
@@ -55,7 +56,7 @@ def drawGraph(true,sp,wsp):
     gmap.plot(wsp_path[:,0], wsp_path[:,1], 'red', edge_width=1)
     gmap.draw("../out/compare.html")
 
-data3=pd.read_csv("../out/graph.csv" )
+# data3=pd.read_csv("../out/graph.csv" )
 G=GenerG(data3)
 WG = GenerWeightedG(data3)
 result = []
