@@ -32,7 +32,7 @@ for key in collected_data:
 				if zipcode in ziptoloc:
 					lnglat.append(ziptoloc[zipcode])
 				else:
-					print "key %s with zipcode %s not found" % (key,zipcode)
+					print ("key %s with zipcode %s not found" % (key,zipcode))
 
 				
 	tracks[key] = np.array(lnglat)
