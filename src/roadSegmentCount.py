@@ -2,6 +2,7 @@ import collections
 import numpy as np
 import joblib
 
+
 def road_segment_counter(collected_data):
 
     count = dict()
@@ -42,8 +43,15 @@ def count_to_pandas(count):
 
     pf['departure']=pd.DataFrame(departure)
     pf['destination'] = pd.DataFrame(destination)
+
     for i in range(pf.shape[0]):
         pf['distance'][i] = get_distance(pf['departure'][i],pf['destination'][i])
+
+    distance  = []
+    for i in range(pf.shape[0]):
+        distance.append(get_distance(pf['departure'][i],pf['destination'][i]))
+    pf['distance'] = pd.DataFrame(distance)
+    pf = pf[pf['distance']!=0]
     return pf
 
 def get_distance(departure,destination):
