@@ -1,7 +1,7 @@
 import collections
 import numpy as np
 import joblib
-
+import pandas as pd
 
 def road_segment_counter(collected_data):
 
@@ -51,6 +51,32 @@ def count_to_pandas(count):
     for i in range(pf.shape[0]):
         distance.append(get_distance(pf['departure'][i],pf['destination'][i]))
     pf['distance'] = pd.DataFrame(distance)
+    pf = pf[pf['distance']!=0]
+    return pf
+
+def weighted_distance(count):
+    pf = pd.DataFrame()
+    pf[0]= count.keys()
+    pf[1]= count.values()
+    departure = []
+    destination = []
+    for i in range(pf.shape[0]):
+        departure.append(pf[0][i][0])
+        destination.append(pf[0][i][1])
+
+    pf['departure']=pd.DataFrame(departure)
+    pf['destination'] = pd.DataFrame(destination)
+
+    for i in range(pf.shape[0]):
+        pf['distance'][i] = get_distance(pf['departure'][i],pf['destination'][i])
+
+    distance = []
+    weighted_distance = []
+    for i in range(pf.shape[0]):
+        distance.append(get_distance(pf['departure'][i],pf['destination'][i]))
+
+    pf['distance'] = pd.DataFrame(distance)
+    pf['weighted_distance'] = pf['distance'] / pf[1]
     pf = pf[pf['distance']!=0]
     return pf
 

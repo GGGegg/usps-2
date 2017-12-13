@@ -25,10 +25,17 @@ def GenerG(data3):
         Gcity.add_edge( data3['departure'][i],data3['destination'][i],weight=data3['distance'][i])
     return Gcity
 
-G=GenerG(data3)
+def GenerWeightedG(data3):
+    Gcity=nx.Graph()
+    for i in data3.index:
+        Gcity.add_edge( data3['departure'][i],data3['destination'][i],weight=data3['weighted_distance'][i])
+    return Gcity
 
-Shortest_path =nx.dijkstra_path(G,0,4)
-length =nx.dijkstra_path_length(G,0,4)
+G=GenerG(data3)
+WG = GenerWeightedG(data3)
+
+Shortest_path =nx.dijkstra_path(G,'25301','91405')
+length =nx.dijkstra_path_length(G,'25301','91405')
 score = score(['25301', '25302', '25314', '91405'],Shortest_path)
 print('length = ',length)
 print('The shortest path is ',Shortest_path)
