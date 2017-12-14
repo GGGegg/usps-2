@@ -47,15 +47,15 @@ def count_to_pandas(count):
 
 
     distance  = []
-    log = []
+
     for i in range(pf.shape[0]):
         distance.append(get_distance(pf['departure'][i],pf['destination'][i]))
     pf['distance'] = pd.DataFrame(distance)
     pf['weighted_distance'] = pf['distance'] / pf[1]
     log = []
-    for i in count.index:
+    for i in range(pf.shape[0]):
         log.append(pf['distance'][i]/math.log(pf[1][i])+1)
-    pf['log'] = pd.DataFrame(log,index=count.index)
+    pf['log'] = pd.DataFrame(log)
     pf = pf[pf['distance']!=0]
     return pf
 
