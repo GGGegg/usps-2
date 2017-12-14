@@ -56,6 +56,7 @@ def count_to_pandas(count):
     for i in range(pf.shape[0]):
         log.append(pf['distance'][i]/math.log(pf[1][i])+1)
     pf['log'] = pd.DataFrame(log)
+    pf.replace(np.inf,999999)
     pf = pf[pf['distance']!=0]
     return pf
 
