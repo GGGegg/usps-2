@@ -32,6 +32,7 @@ def road_segment_counter(collected_data):
 
     return count
 def count_to_pandas(count):
+    import math
     pf = pd.DataFrame()
     pf[0]= count.keys()
     pf[1]= count.values()
@@ -51,8 +52,10 @@ def count_to_pandas(count):
         distance.append(get_distance(pf['departure'][i],pf['destination'][i]))
     pf['distance'] = pd.DataFrame(distance)
     pf['weighted_distance'] = pf['distance'] / pf[1]
-    for i in range(pf.shape[0]):
-        log.append(pf['distance'][i]/log(pf[1][i]))
+    log = []
+    for i in count.index:
+        log.append(pf['distance'][i]/math.log(pf[1][i])+1)
+    pf['log'] = pd.DataFrame(log,index=count.index)
     pf = pf[pf['distance']!=0]
     return pf
 
